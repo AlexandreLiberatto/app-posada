@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
+    backgroundColor: '#BEBFC5'
   },
   input: {
     height: 40,
@@ -67,5 +68,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 12,
     padding: 10,
+    backgroundColor: 'white'
   },
 });

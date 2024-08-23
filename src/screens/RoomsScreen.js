@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
+    backgroundColor: '#BEBFC5'
   },
   room: {
     width: '45%',
