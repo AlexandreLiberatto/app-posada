@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function RoomsScreen({ navigation }) {
@@ -26,21 +26,32 @@ export default function RoomsScreen({ navigation }) {
     navigation.navigate('Booking', { roomId });
   };
 
+  const handleVacate = async (roomId) => {
+    const updatedRooms = rooms.map(room => 
+      room.id === roomId ? { ...room, occupied: false } : room
+    );
+    setRooms(updatedRooms);
+    await AsyncStorage.setItem('rooms', JSON.stringify(updatedRooms));
+  };
+
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       {rooms.map(room => (
         <View key={room.id} style={[styles.room, room.occupied ? styles.occupied : styles.available]}>
           <Text>{`Quarto ${room.id} - ${room.occupied ? 'Ocupado' : 'Livre'}`}</Text>
-          {!room.occupied && <Button title="Locar" onPress={() => handleBook(room.id)} />}
+          {room.occupied ? (
+            <Button title="Desocupar" onPress={() => handleVacate(room.id)} />
+          ) : (
+            <Button title="Locar" onPress={() => handleBook(room.id)} />
+          )}
         </View>
       ))}
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 10,
     flexDirection: 'row',
     flexWrap: 'wrap',
