@@ -22,11 +22,29 @@ export default function GuestsScreen() {
 
         // Filtrar hóspedes que estão em quartos ocupados
         const occupiedGuests = guestsData.filter(guest =>
-          rooms.some(room => room.occupied && room.cpf === guest.cpf) // Certifique-se que cpf está correto
+          rooms.some(room => room.occupied && room.cpf === guest.cpf)
         );
 
-        // Atualizar o estado com os hóspedes ocupados
-        setGuests(occupiedGuests);
+        // Criar um objeto para armazenar o hóspede mais recente por CPF
+        const latestGuestsMap = {};
+
+        occupiedGuests.forEach(guest => {
+          if (!latestGuestsMap[guest.cpf]) {
+            latestGuestsMap[guest.cpf] = guest;
+          } else {
+            // Aqui você pode comparar a data de reserva ou outra propriedade para determinar a última locação
+            // Exemplo usando um campo de data fictício 'reservationDate'
+            if (new Date(guest.reservationDate) > new Date(latestGuestsMap[guest.cpf].reservationDate)) {
+              latestGuestsMap[guest.cpf] = guest;
+            }
+          }
+        });
+
+        // Converter o objeto para um array de hóspedes
+        const latestGuestsArray = Object.values(latestGuestsMap);
+
+        // Atualizar o estado com os hóspedes mais recentes
+        setGuests(latestGuestsArray);
       } catch (error) {
         console.error('Error fetching guests or rooms from AsyncStorage:', error);
       }
