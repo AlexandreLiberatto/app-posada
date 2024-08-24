@@ -25,48 +25,46 @@ export default function BookingScreen({ route, navigation }) {
     if (name) fetchGuestData();
   }, [name]);
 
-  const validateInputs = () => {
-    if (!name || !cpf || !email || !numPeople || !numDays || !paymentMethod) {
-      Alert.alert('Campos Incompletos', 'Por favor, preencha todos os campos antes de confirmar a reserva.');
-      return false;
-    }
-    return true;
-  };
-
-  const confirmBooking = () => {
-    Alert.alert(
-      'Confirmar Reserva',
-      'Deseja confirmar a reserva deste apartamento?',
-      [
-        {
-          text: 'Cancelar',
-          style: 'cancel',
-        },
-        {
-          text: 'Confirmar',
-          onPress: handleBooking,
-        },
-      ],
-      { cancelable: false }
-    );
-  };
-
   const handleBooking = async () => {
-    if (!validateInputs()) return;
+    const storedRooms = await AsyncStorage.getItem('rooms');
+    const rooms = storedRooms ? JSON.parse(storedRooms) : [];
 
+    const isUserAlreadyBooked = rooms.some(room => room.occupied && room.cpf === cpf);
+
+    if (isUserAlreadyBooked) {
+      Alert.alert(
+        'Aviso',
+        'Você já está locado em um apartamento. Deseja fazer outra locação?',
+        [
+          {
+            text: 'Cancelar',
+            style: 'cancel',
+          },
+          {
+            text: 'Confirmar',
+            onPress: () => finalizeBooking(rooms),
+          },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      finalizeBooking(rooms);
+    }
+  };
+
+  const finalizeBooking = async (rooms) => {
     const storedGuests = await AsyncStorage.getItem('guests');
     const guests = storedGuests ? JSON.parse(storedGuests) : [];
     guests.push({ name, cpf, email, numPeople });
     await AsyncStorage.setItem('guests', JSON.stringify(guests));
 
-    const storedRooms = await AsyncStorage.getItem('rooms');
-    const rooms = JSON.parse(storedRooms);
     const roomIndex = rooms.findIndex(room => room.id === roomId);
     rooms[roomIndex].occupied = true;
+    rooms[roomIndex].cpf = cpf;  // Associar o CPF ao quarto locado
     await AsyncStorage.setItem('rooms', JSON.stringify(rooms));
 
-    Alert.alert('Reserva realizada com sucesso!');
-    navigation.navigate('Rooms'); // Navega de volta para a tela de quartos
+    alert('Reserva realizada com sucesso!');
+    navigation.navigate('Rooms');
   };
 
   return (
@@ -78,7 +76,7 @@ export default function BookingScreen({ route, navigation }) {
       <TextInput placeholder="Número de Pessoas" value={numPeople} onChangeText={setNumPeople} style={styles.input} />
       <TextInput placeholder="Dias de Estadia" value={numDays} onChangeText={setNumDays} style={styles.input} />
       <TextInput placeholder="Forma de Pagamento" value={paymentMethod} onChangeText={setPaymentMethod} style={styles.input} />
-      <Button title="Confirmar Reserva" onPress={confirmBooking} />
+      <Button title="Confirmar Reserva" onPress={handleBooking} />
     </View>
   );
 }
