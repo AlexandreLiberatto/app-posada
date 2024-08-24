@@ -78,8 +78,12 @@ export default function BookingScreen({ route, navigation }) {
     rooms[roomIndex].cpf = cpf;  // Associar o CPF ao quarto locado
     await AsyncStorage.setItem('rooms', JSON.stringify(rooms));
 
-    alert('Reserva realizada com sucesso!');
-    navigation.navigate('Rooms');
+    Alert.alert(
+      'Reserva Confirmada',
+      'Sua reserva foi realizada com sucesso!',
+      [{ text: 'OK', onPress: () => navigation.navigate('Rooms') }],
+      { cancelable: false }
+    );
   };
 
   return (
