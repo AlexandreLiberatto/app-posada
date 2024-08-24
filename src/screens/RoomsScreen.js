@@ -63,7 +63,7 @@ export default function RoomsScreen({ navigation }) {
       <View style={styles.grid}>
         {rooms.map(room => (
           <View key={room.id} style={[styles.room, room.occupied ? styles.occupied : styles.available]}>
-            <Text>{`Quarto ${room.id} - ${room.occupied ? 'Ocupado' : 'Livre'}`}</Text>
+            <Text style={styles.roomText}>{`Quarto ${room.id} - ${room.occupied ? 'Ocupado' : 'Livre'}`}</Text>
             {room.occupied ? (
               <Button title="Desocupar" onPress={() => handleVacate(room.id)} />
             ) : (
@@ -97,5 +97,10 @@ const styles = StyleSheet.create({
   },
   available: {
     backgroundColor: 'green',
+  },
+  roomText: {
+    fontWeight: 'bold',
+    fontSize: 15, // Aumenta um pouco o tamanho da fonte
+    marginBottom: 10,
   },
 });
