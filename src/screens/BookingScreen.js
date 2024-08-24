@@ -25,7 +25,22 @@ export default function BookingScreen({ route, navigation }) {
     if (name) fetchGuestData();
   }, [name]);
 
+  const validateFields = () => {
+    if (!name || !cpf || !email || !numPeople || !numDays || !paymentMethod) {
+      Alert.alert(
+        'Campos obrigatórios',
+        'Por favor, preencha todos os campos.',
+        [{ text: 'OK' }],
+        { cancelable: false }
+      );
+      return false;
+    }
+    return true;
+  };
+
   const handleBooking = async () => {
+    if (!validateFields()) return;
+
     const storedRooms = await AsyncStorage.getItem('rooms');
     const rooms = storedRooms ? JSON.parse(storedRooms) : [];
 
