@@ -66,7 +66,7 @@ export default function BookingScreen({ route, navigation }) {
     await AsyncStorage.setItem('rooms', JSON.stringify(rooms));
 
     Alert.alert('Reserva realizada com sucesso!');
-    navigation.navigate('Rooms');
+    navigation.navigate('Rooms'); // Navega de volta para a tela de quartos
   };
 
   return (
