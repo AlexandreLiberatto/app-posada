@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Button, Text, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function BookingScreen({ route, navigation }) {
@@ -25,7 +25,35 @@ export default function BookingScreen({ route, navigation }) {
     if (name) fetchGuestData();
   }, [name]);
 
+  const validateInputs = () => {
+    if (!name || !cpf || !email || !numPeople || !numDays || !paymentMethod) {
+      Alert.alert('Campos Incompletos', 'Por favor, preencha todos os campos antes de confirmar a reserva.');
+      return false;
+    }
+    return true;
+  };
+
+  const confirmBooking = () => {
+    Alert.alert(
+      'Confirmar Reserva',
+      'Deseja confirmar a reserva deste apartamento?',
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+        },
+        {
+          text: 'Confirmar',
+          onPress: handleBooking,
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
   const handleBooking = async () => {
+    if (!validateInputs()) return;
+
     const storedGuests = await AsyncStorage.getItem('guests');
     const guests = storedGuests ? JSON.parse(storedGuests) : [];
     guests.push({ name, cpf, email, numPeople });
@@ -37,7 +65,7 @@ export default function BookingScreen({ route, navigation }) {
     rooms[roomIndex].occupied = true;
     await AsyncStorage.setItem('rooms', JSON.stringify(rooms));
 
-    alert('Reserva realizada com sucesso!');
+    Alert.alert('Reserva realizada com sucesso!');
     navigation.navigate('Rooms');
   };
 
@@ -50,7 +78,7 @@ export default function BookingScreen({ route, navigation }) {
       <TextInput placeholder="Número de Pessoas" value={numPeople} onChangeText={setNumPeople} style={styles.input} />
       <TextInput placeholder="Dias de Estadia" value={numDays} onChangeText={setNumDays} style={styles.input} />
       <TextInput placeholder="Forma de Pagamento" value={paymentMethod} onChangeText={setPaymentMethod} style={styles.input} />
-      <Button title="Confirmar Reserva" onPress={handleBooking} />
+      <Button title="Confirmar Reserva" onPress={confirmBooking} />
     </View>
   );
 }
