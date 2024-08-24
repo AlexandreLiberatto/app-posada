@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Text, Button, StyleSheet, ScrollView, Alert, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -69,6 +69,12 @@ export default function RoomsScreen({ navigation }) {
             ) : (
               <Button title="Locar" onPress={() => handleBook(room.id)} />
             )}
+            <TouchableOpacity 
+              style={styles.button} 
+              onPress={() => navigation.navigate('Guests')}
+            >
+              <Text style={styles.buttonText}>Ver Hóspedes Locados</Text>
+            </TouchableOpacity>
           </View>
         ))}
       </View>
@@ -102,5 +108,22 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 15, // Aumenta um pouco o tamanho da fonte
     marginBottom: 10,
+  },
+  button: {
+    backgroundColor: '#4CAF50',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
