@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Button, StyleSheet, ScrollView, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function RoomsScreen({ navigation }) {
@@ -34,6 +34,24 @@ export default function RoomsScreen({ navigation }) {
     await AsyncStorage.setItem('rooms', JSON.stringify(updatedRooms));
   };
 
+  const confirmVacate = (roomId) => {
+    Alert.alert(
+      'Confirmar Desocupação',
+      'Deseja desocupar o quarto?',
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+        },
+        {
+          text: 'Confirmar',
+          onPress: () => handleVacate(roomId),
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.grid}>
@@ -41,7 +59,7 @@ export default function RoomsScreen({ navigation }) {
           <View key={room.id} style={[styles.room, room.occupied ? styles.occupied : styles.available]}>
             <Text>{`Quarto ${room.id} - ${room.occupied ? 'Ocupado' : 'Livre'}`}</Text>
             {room.occupied ? (
-              <Button title="Desocupar" onPress={() => handleVacate(room.id)} />
+              <Button title="Desocupar" onPress={() => confirmVacate(room.id)} />
             ) : (
               <Button title="Locar" onPress={() => handleBook(room.id)} />
             )}
@@ -63,7 +81,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   room: {
-    width: '48%', // Adjusted to fit two columns with spacing
+    width: '48%', // Ajustado para se ajustar a duas colunas com espaçamento
     padding: 20,
     marginVertical: 10,
     borderRadius: 5,
