@@ -36,16 +36,18 @@ export default function RoomsScreen({ navigation }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {rooms.map(room => (
-        <View key={room.id} style={[styles.room, room.occupied ? styles.occupied : styles.available]}>
-          <Text>{`Quarto ${room.id} - ${room.occupied ? 'Ocupado' : 'Livre'}`}</Text>
-          {room.occupied ? (
-            <Button title="Desocupar" onPress={() => handleVacate(room.id)} />
-          ) : (
-            <Button title="Locar" onPress={() => handleBook(room.id)} />
-          )}
-        </View>
-      ))}
+      <View style={styles.grid}>
+        {rooms.map(room => (
+          <View key={room.id} style={[styles.room, room.occupied ? styles.occupied : styles.available]}>
+            <Text>{`Quarto ${room.id} - ${room.occupied ? 'Ocupado' : 'Livre'}`}</Text>
+            {room.occupied ? (
+              <Button title="Desocupar" onPress={() => handleVacate(room.id)} />
+            ) : (
+              <Button title="Locar" onPress={() => handleBook(room.id)} />
+            )}
+          </View>
+        ))}
+      </View>
     </ScrollView>
   );
 }
@@ -53,15 +55,17 @@ export default function RoomsScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
+    backgroundColor: '#BEBFC5',
+  },
+  grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    backgroundColor: '#BEBFC5'
+    justifyContent: 'space-between',
   },
   room: {
-    width: '45%',
+    width: '48%', // Adjusted to fit two columns with spacing
     padding: 20,
-    margin: 10,
+    marginVertical: 10,
     borderRadius: 5,
   },
   occupied: {
