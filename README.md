@@ -58,7 +58,7 @@ npm start
 
 Se estiver usando o Expo, você pode escanear o código QR com o aplicativo Expo Go em seu dispositivo móvel.
 Estrutura do Projeto
-texto
+
 app-posada/
 ├── assets/               # Imagens e outros recursos
 │   ├── adaptive-icon.jpg
