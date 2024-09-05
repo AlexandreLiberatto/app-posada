@@ -1,14 +1,32 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ImageBackground, Alert } from 'react-native';
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  // Definindo credenciais válidas
+  const validUsername = 'admin';
+  const validPassword = '1234';
+
   const handleLogin = () => {
     // Lógica para autenticação
-    navigation.navigate('Rooms');
+    if (username === validUsername && password === validPassword) {
+      // Credenciais válidas, navegue para a tela "Rooms"
+      navigation.navigate('Rooms');
+    } else {
+      // Credenciais inválidas, exiba um alerta
+      Alert.alert(
+        'Ops...',
+        'Usuário ou senha inválidos!',
+        [{ text: 'OK', onPress: () => navigation.navigate('Login') }],
+        { cancelable: false }
+      );
+    }
   };
+
+  
+
 
   return (
     <ImageBackground
