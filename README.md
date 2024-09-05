@@ -16,16 +16,16 @@ Este é um aplicativo móvel desenvolvido em React Native para gerenciar quartos
 Aqui estão algumas capturas de tela do aplicativo:
 
 ### Tela de Login
-![Tela de Login](./assets/login.jpeg)
+![Tela de Login](./assets/login.jpg)
 
 ### Tela de Quartos
-![Tela de Quartos](./assets/apartamentos-disponiveis.jpeg)
+![Tela de Quartos](./assets/apartamentos-disponiveis.jpg)
 
 ### Tela de Reservas
-![Tela de Reservas](./assets/formulario-de-cadastro.jpeg)
+![Tela de Reservas](./assets/formulario-de-cadastro.jpg)
 
 ### Tela de Hóspedes
-![Tela de Hóspedes](./assets/hospedes-locados.jpeg)
+![Tela de Hóspedes](./assets/hospedes-locados.jpg)
 
 ## Tecnologias Utilizadas
 
