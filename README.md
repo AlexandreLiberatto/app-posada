@@ -49,16 +49,19 @@ Antes de executar o aplicativo, você precisa ter o seguinte instalado em sua m�
    cd app-posada
 
    Instalar as dependências:
-bater
-npm install
 
-Início do aplicativo:
-bater
+## Início do aplicativo
+
+Inicie o aplicativo com o comando:
+```bash
 npm start
+```
 
-Se estiver usando o Expo, você pode escanear o código QR com o aplicativo Expo Go em seu dispositivo móvel.
-Estrutura do Projeto
+Se estiver usando o Expo, você pode escanear o QR code com o aplicativo Expo Go em seu dispositivo móvel.
 
+## Estrutura do Projeto
+
+```
 app-posada/
 ├── assets/               # Imagens e outros recursos
 │   ├── adaptive-icon.jpg
@@ -75,24 +78,32 @@ app-posada/
 │   │   └── AppNavigator.js
 │   └── screens/          # Telas do aplicativo
 │       ├── BookingScreen.js
-│       ├── GuestsScreen.js
+│       ├── GuestScreen.js
 │       ├── LoginScreen.js
 │       └── RoomsScreen.js
 ├── App.js                # Componente principal do aplicativo
 └── package.json          # Dependências e scripts do projeto
+```
 
-Contribuição
+## Contribuição
+
 Contribuições são bem-vindas! Se você deseja contribuir, siga estas etapas:
-Fork o projeto.
-Crie uma nova branch ( ).git checkout -b feature/nome-da-sua-feature
-Faça suas alterações e confirme ( ).git commit -m 'Adiciona nova feature'
-Envie para o repositório remoto ( ).git push origin feature/nome-da-sua-feature
-Abra um Pull Request.
-Licença
-Este projeto está licenciado sob uma licença do MIT .
-Contato
+
+1. Fork o projeto.
+2. Crie uma nova branch (`git checkout -b feature/nome-da-sua-feature`).
+3. Faça suas alterações e commit (`git commit -m 'Adiciona nova feature'`).
+4. Envie para o repositório remoto (`git push origin feature/nome-da-sua-feature`).
+5. Abra um Pull Request.
+
+## Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
+
+## Contato
+
 Se você tiver alguma dúvida ou sugestão, sinta-se à vontade para entrar em contato:
-LinkedIn : Alexandre Liberato
-GitHub : AlexandreLiberatto
-WhatsApp : 5548991604054
-Portfólio : Portfólio Alexandre Jade
+
+- **LinkedIn**: [Alexandre Liberato](https://www.linkedin.com/in/alexandre-liberato-32179624b/)
+- **GitHub**: [AlexandreLiberatto](https://github.com/AlexandreLiberatto)
+- **WhatsApp**: [5548991604054](https://wa.me/5548991604054)
+- **Portfólio**: [Portfolio Alexandre Jade](https://portfolio-alexandre-jade.vercel.app/)
